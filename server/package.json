@@ -8,8 +8,10 @@
     "build": "npx tsc",
     "start": "npm run build && node dist/server.js --ignore client",
     "dev": "npx nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node dist/seeds/index.js"
+    "test": "npx cypress run --browser electron",
+    "seed": "node dist/seeds/index.js",
+    "test-component": "npx cypress run --component",
+    "test-gui": "npx cypress open"
   },
   "nodemonConfig": {
     "watch": [
@@ -25,9 +27,8 @@
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2",
-    "pg": "^8.11.5",
-    "sequelize": "^6.37.3"
+    "jsonwebtoken": "^9.0.2"
+    
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
