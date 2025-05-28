@@ -24,16 +24,25 @@ jobs:
         with:
           node-version: 21.x
 
-      # Install dependencies
-      - name: Install Deps
-        run: npm install
-      
-      # Run build
-      - name: Run Build
-        run: npm run build
+      - name: Install dependencies (root, server, client)
+        run: |
+          npm install
+          cd server && npm install
+          cd ../client && npm install
 
-    
-      # Run tests
-      - name: Run Tests
-        run: npm run test-component
+      - name: Build server
+        run: |
+          cd server
+          npm run build
+
+      - name: Build client
+        run: |
+          cd ../client
+          npm run build
+
+      # Example: run Vitest (adjust if you use another test runner)
+      - name: Run client tests
+        run: |
+          cd client
+          npm run test
         
