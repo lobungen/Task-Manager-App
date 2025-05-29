@@ -9,7 +9,7 @@ import { ApiMessage } from '../interfaces/ApiMessage';
 
 import auth from '../utils/auth';
 
-const boardStates = ['Todo', 'In Progress', 'Done'];
+const boardStates = ['To Do', 'In Progress', 'Done'];
 
 const Board = () => {
   const [tickets, setTickets] = useState<TicketData[]>([]);
@@ -21,7 +21,7 @@ const Board = () => {
   const checkLogin = () => {
     if (auth.loggedIn()) {
       setLoginCheck(true);
-   
+
     }
   };
 
@@ -85,8 +85,9 @@ const Board = () => {
               placeholder="Filter tickets"
               value={filter}
               onChange={handleFilterChange}
+              style={{ color: 'black', backgroundColor: 'white' }}
             />
-            <select value={sortBy} onChange={handleSortChange}>
+            <select value={sortBy} onChange={handleSortChange} style={{ color: 'black', backgroundColor: 'white' }}>
               <option value="name">Sort by Name</option>
               <option value="status">Sort by Status</option>
             </select>
