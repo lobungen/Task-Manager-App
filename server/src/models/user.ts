@@ -1,59 +1,17 @@
-import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
+import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-interface UserAttributes {
-  id: number;
-  username: string;
-  password: string;
-}
+const UserSchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+}, { timestamps: true });
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
-
-export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  public id!: number;
-  public username!: string;
-  public password!: string;
-
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-
-  // Hash the password before saving the user
-  public async setPassword(password: string) {
-    const saltRounds = 10;
-    this.password = await bcrypt.hash(password, saltRounds);
+UserSchema.pre('save', async function (next) {
+  if (this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 10);
   }
-}
+  next();
+});
 
-export function UserFactory(sequelize: Sequelize): typeof User {
-  User.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-    },
-    {
-      tableName: 'users',
-      sequelize,
-      hooks: {
-        beforeCreate: async (user: User) => {
-          await user.setPassword(user.password);
-        },
-        beforeUpdate: async (user: User) => {
-          await user.setPassword(user.password);
-        },
-      }
-    }
-  );
-
-  return User;
-}
+const User = mongoose.model('User', UserSchema);
+export default User;
