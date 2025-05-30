@@ -9,7 +9,7 @@ import { ApiMessage } from '../interfaces/ApiMessage';
 
 import auth from '../utils/auth';
 
-const boardStates = ['Todo', 'In Progress', 'Done'];
+const boardStates = ['To Do', 'In Progress', 'Done'];
 
 const Board = () => {
   const [tickets, setTickets] = useState<TicketData[]>([]);
@@ -21,7 +21,7 @@ const Board = () => {
   const checkLogin = () => {
     if (auth.loggedIn()) {
       setLoginCheck(true);
-   
+
     }
   };
 
@@ -75,7 +75,8 @@ const Board = () => {
     <>
       {!loginCheck ? (
         <div className="login-notice">
-          <h1>Login to create & view tickets</h1>
+          <h1>Welcome to Task Manager App!</h1>
+          <p>Let's get organized. Start by adding your first task and take control of your productivity.</p>
         </div>
       ) : (
         <div className="board">
@@ -85,8 +86,9 @@ const Board = () => {
               placeholder="Filter tickets"
               value={filter}
               onChange={handleFilterChange}
+              className="input-select"
             />
-            <select value={sortBy} onChange={handleSortChange}>
+            <select value={sortBy} onChange={handleSortChange} className="input-select">
               <option value="name">Sort by Name</option>
               <option value="status">Sort by Status</option>
             </select>
