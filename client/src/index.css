@@ -151,21 +151,21 @@ tbody tr:nth-child(odd) {
 }
 
 .todo {
-  background-color: white;
+  background-color: #1c7eff27;
   color: #1c7eff;
   border: 1px solid #1c7eff;
   width: 20rem;
 }
 
 .inprogress {
-  background-color: white;
+  background-color: #1c7eff27;
   color: #1c7eff;
   border: 1px solid #1c7eff;
   width: 20rem;
 }
 
 .done {
-  background-color: white;
+  background-color: #1c7eff27;
   color: #1c7eff;
   border: 1px solid #1c7eff;
   width: 20rem;
@@ -178,7 +178,7 @@ tbody tr:nth-child(odd) {
   margin-bottom: 10px;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 0.1em solid black;
+  border: 0.1em solid #1c7eff;
 }
 
 .container {
@@ -213,7 +213,6 @@ tbody tr:nth-child(odd) {
 
 .form > input {
   width: 200px;
-  
 }
 
 .form > label {
@@ -235,18 +234,19 @@ tbody tr:nth-child(odd) {
 }
 
 .editBtn {
-  background-color: white;
+  background-color: #1c7eff;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin-right: 0.5em;
 }
 
 .deleteBtn {
-  background-color: white;
+  background-color: #1c7eff;
   font-weight: 500;
-  color: black;
+  color: white;
   text-decoration: inherit;
 }
 
@@ -255,10 +255,10 @@ tbody tr:nth-child(odd) {
 }
 
 .login-notice {
-  display: flex;
   width: 100%;
   align-items: center;
   justify-content: center;
+  color: #1c7eff
 }
 
 
@@ -273,4 +273,9 @@ tbody tr:nth-child(odd) {
   button {
     background-color: white;
   }
+}
+
+.input-select {
+  color: #1c7eff;
+  background-color: white;
 }

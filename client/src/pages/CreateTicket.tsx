@@ -77,7 +77,7 @@ const CreateTicket = () => {
             id='tStatus'
             value={newTicket?.status || ''}
             onChange={handleTextChange}
-            style={{ color: 'black', backgroundColor: 'white' }}
+            className="input-select"
           >
             <option value='Todo'>To Do</option>
             <option value='In Progress'>In Progress</option>

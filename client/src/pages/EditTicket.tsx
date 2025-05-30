@@ -50,33 +50,33 @@ const EditTicket = () => {
         {
           ticket ? (
             <form className='form' onSubmit={handleSubmit}>
-              <h1>Edit Ticket</h1>
-              <label htmlFor='tName'>Ticket Name</label>
+              <h1>Edit Task</h1>
+              <label htmlFor='tName'>Task Name</label>
               <textarea
                 id='tName'
                 name='name'
                 value={ticket.name || ''}
                 onChange={handleTextAreaChange}
                 />
-              <label htmlFor='tStatus'>Ticket Status</label>
+              <label htmlFor='tStatus'>Task Status</label>
               <select
                 name='status'
                 id='tStatus'
                 value={ticket.status || ''}
                 onChange={handleChange}
               >
-                <option  value='Todo'>Todo</option>
+                <option  value='Todo'>To Do</option>
                 <option  value='In Progress'>In Progress</option>
                 <option  value='Done'>Done</option>
             </select>
-            <label htmlFor='tDescription'>Ticket Description</label>
+            <label htmlFor='tDescription'>Task Description</label>
               <textarea
                 id='tDescription'
                 name='description'
                 value={ticket.description || ''}
                 onChange={handleTextAreaChange}
               />
-              <button type='submit'>Submit Form</button>
+              <button type='submit'>Submit Task</button>
             </form>
           ) : (
             <div>Issues fetching ticket</div>

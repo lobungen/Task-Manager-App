@@ -44,10 +44,10 @@ This is a full-stack Kanban board application with secure authentication using J
 
 3. Set up the `.env` file in the `server` directory:
    ```properties
-   DB_NAME='kanban_db'
-   DB_USER='your_db_user'
-   DB_PASSWORD='your_db_password'
-   JWT_SECRET_KEY='your_secret_key'
+   MONGODB_URI=your-atlas-uri-here
+   MONGODB_DB=kanban_db
+   JWT_SECRET_KEY=your-secret-key
+   PORT=3001
    ```
 
 4. Seed the database:
