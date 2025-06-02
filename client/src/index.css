@@ -182,10 +182,10 @@ tbody tr:nth-child(odd) {
 }
 
 .container {
-  /* margin: auto; */
+  margin: auto;
   width: 100%;
   background-color: white;
-  /* height: 90%; */
+  height: 90%;
 }
 
 #create-ticket-link {
@@ -278,4 +278,31 @@ tbody tr:nth-child(odd) {
 .input-select {
   color: #1c7eff;
   background-color: white;
+}
+
+.app-footer {
+  width: 100%;
+  height: 50px;
+  background-color: #1c7eff27;
+  border: #1c7eff solid 1px;
+  color: #1c7eff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.footer-social {
+  margin-top: 10px;
+}
+
+.footer-social a {
+  margin: 0 10px;
+  font-size: 20px;
+  color: #1c7eff;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: white;
 }
