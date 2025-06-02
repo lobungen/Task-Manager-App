@@ -6,10 +6,12 @@ import ErrorPage from './ErrorPage';
 import Swimlane from '../components/Swimlane';
 import { TicketData } from '../interfaces/TicketData';
 import { ApiMessage } from '../interfaces/ApiMessage';
+import taskimage from '../assets/task-management.png';
 
 import auth from '../utils/auth';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
-const boardStates = ['Todo', 'In Progress', 'Done'];
+const boardStates = ['To Do', 'In Progress', 'Done'];
 
 const Board = () => {
   const [tickets, setTickets] = useState<TicketData[]>([]);
@@ -21,7 +23,7 @@ const Board = () => {
   const checkLogin = () => {
     if (auth.loggedIn()) {
       setLoginCheck(true);
-   
+
     }
   };
 
@@ -73,45 +75,65 @@ const Board = () => {
 
   return (
     <>
-      {!loginCheck ? (
-        <div className="login-notice">
-          <h1>Login to create & view tickets</h1>
-        </div>
-      ) : (
-        <div className="board">
-          <div className="controls">
-            <input
-              type="text"
-              placeholder="Filter tickets"
-              value={filter}
-              onChange={handleFilterChange}
-            />
-            <select value={sortBy} onChange={handleSortChange}>
-              <option value="name">Sort by Name</option>
-              <option value="status">Sort by Status</option>
-            </select>
+      <div>
+        {!loginCheck ? (
+          <div className="login-notice">
+            <img src={taskimage} alt="Task Manager Logo" />
+            <h1>Welcome to Task Manager App!</h1>
+            <p>Let's get organized. Start by adding your first task and take control of your productivity.</p>
           </div>
-          <button type="button" id="create-ticket-link">
-            <Link to="/create">New Ticket</Link>
-          </button>
-          <div className="board-display">
-            {boardStates.map(status => {
-              const filteredByStatus = filteredTickets.filter(
-                ticket => ticket.status === status
-              );
-              return (
-                <Swimlane
-                  title={status}
-                  key={status}
-                  tickets={filteredByStatus}
-                  deleteTicket={deleteIndvTicket}
-                />
-              );
-            })}
+        ) : (
+          <div className="board">
+            <div className="controls">
+              <input
+                type="text"
+                placeholder="Filter tickets"
+                value={filter}
+                onChange={handleFilterChange}
+                className="input-select"
+              />
+              <select value={sortBy} onChange={handleSortChange} className="input-select">
+                <option value="name">Sort by Name</option>
+                <option value="status">Sort by Status</option>
+              </select>
+            </div>
+            <button type="button" id="create-ticket-link">
+              <Link to="/create">New Ticket</Link>
+            </button>
+            <div className="board-display">
+              {boardStates.map(status => {
+                const filteredByStatus = filteredTickets.filter(
+                  ticket => ticket.status === status
+                );
+                return (
+                  <Swimlane
+                    title={status}
+                    key={status}
+                    tickets={filteredByStatus}
+                    deleteTicket={deleteIndvTicket}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+        <footer className="app-footer">
+          <p>&copy; 2025 Task Manager App. All rights reserved.</p>
+          <div className="footer-social">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <FaFacebook />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <FaTwitter />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <FaInstagram />
+            </a>
+          </div>
+        </footer>
+      </div>
     </>
   );
 };
+
 export default Board;
