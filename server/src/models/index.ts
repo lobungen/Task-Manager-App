@@ -1,24 +1,18 @@
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { Sequelize } from 'sequelize';
-import { UserFactory } from './user.js';
-import { TicketFactory } from './ticket.js';
+import User from './user.js';
+import Ticket from './ticket.js';
 
-const sequelize = process.env.DB_URL
-  ? new Sequelize(process.env.DB_URL)
-  : new Sequelize(process.env.DB_NAME || '', process.env.DB_USER || '', process.env.DB_PASSWORD, {
-      host: 'localhost',
-      dialect: 'postgres',
-      dialectOptions: {
-        decimalNumbers: true,
-      },
-    });
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGODB_URI as string);
+    console.log(`MongoDB connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
 
-const User = UserFactory(sequelize);
-const Ticket = TicketFactory(sequelize);
-
-User.hasMany(Ticket, { foreignKey: 'assignedUserId' });
-Ticket.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser'});
-
-export { sequelize, User, Ticket };
+export { connectDB, User, Ticket };

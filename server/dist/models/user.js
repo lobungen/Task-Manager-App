@@ -1,38 +1,14 @@
-import { DataTypes, Model } from 'sequelize';
+import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-export class User extends Model {
-    // Hash the password before saving the user
-    async setPassword(password) {
-        const saltRounds = 10;
-        this.password = await bcrypt.hash(password, saltRounds);
+const UserSchema = new mongoose.Schema({
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+}, { timestamps: true });
+UserSchema.pre('save', async function (next) {
+    if (this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 10);
     }
-}
-export function UserFactory(sequelize) {
-    User.init({
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-    }, {
-        tableName: 'users',
-        sequelize,
-        hooks: {
-            beforeCreate: async (user) => {
-                await user.setPassword(user.password);
-            },
-            beforeUpdate: async (user) => {
-                await user.setPassword(user.password);
-            },
-        }
-    });
-    return User;
-}
+    next();
+});
+const User = mongoose.model('User', UserSchema);
+export default User;
