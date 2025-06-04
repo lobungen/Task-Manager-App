@@ -7,12 +7,15 @@ import routes from './routes/index.js';
 
 import graphqlHandler from './graphql/index.js';
 
+import cors from 'cors';
+
 
 
 const app = express();
 
 // Add GraphQL middleware
 app.use('/graphql', graphqlHandler);
+app.use(cors());
 
 
 const PORT = process.env.PORT || 3001;
