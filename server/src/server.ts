@@ -2,16 +2,19 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 import routes from './routes/index.js';
+import { connectDB } from './models/index.js'; // Import the database connection
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kanban_db';
+//const connection = process.env.MONGODB_URI || 'mongodb://localhost:27017/kanban_db';
+//console.log("Connecting to MongoDB at:", connection);
 
+await connectDB(); // Initialize database connection
 
-app.use(express.json());
 app.use(express.static('../client/dist')); // Serve frontend
+app.use(express.json());
 
 // Use routes
 app.use(routes);
@@ -21,7 +24,8 @@ app.get('/test', (_, res) => {
 });
 
 // Connect to MongoDB and start the server
-mongoose.connect(MONGODB_URI)
+/*
+mongoose.connect(connection)
   .then(() => {
     console.log('🟢 Connected to MongoDB');
     app.listen(PORT, () => {
@@ -31,3 +35,8 @@ mongoose.connect(MONGODB_URI)
   .catch((err) => {
     console.error('🔴 MongoDB connection error:', err);
   });
+*/ 
+  
+app.listen(PORT, () => {
+  console.log(`🚀 Server is listening on port ${PORT}`);
+});
