@@ -15,7 +15,11 @@ const app = express();
 
 // Add GraphQL middleware
 app.use('/graphql', graphqlHandler);
-app.use(cors());
+
+app.use(cors({
+  origin: 'https://task-manager-client-bajo.onrender.com', // ✅ Allow frontend origin
+  credentials: true
+}));
 
 
 const PORT = process.env.PORT || 3001;
