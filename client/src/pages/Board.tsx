@@ -11,14 +11,29 @@ import taskimage from '../assets/task-management.png';
 import auth from '../utils/auth';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
+import { useQuery } from '@apollo/client';
+import { QUERY_TICKETS } from '../utils/queries';
+
+
 const boardStates = ['To Do', 'In Progress', 'Done'];
 
 const Board = () => {
-  const [tickets, setTickets] = useState<TicketData[]>([]);
-  const [error, setError] = useState(false);
+  //const [tickets, setTickets] = useState<TicketData[]>([]);
+  //const [error, setError] = useState(false);
   const [loginCheck, setLoginCheck] = useState(false);
   const [filter, setFilter] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'status'>('name');
+  
+  const { loading, data, error } = useQuery(QUERY_TICKETS);
+  // this becomes the source of truth/STATE for tickets
+  const tickets = data?.tickets || [];
+
+  console.log("loading: ", loading);
+  console.log("data: ", data);
+  console.log("error: ", error);
+
+  if (loading) return <p>Loading...</p>;
+
 
   const checkLogin = () => {
     if (auth.loggedIn()) {
