@@ -4,8 +4,8 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || '', {
-      dbName: process.env.MONGODB_DB || 'ticketApp',
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/kanban_db', {
+      dbName: process.env.MONGODB_DB || 'kanban_db',
     });
     console.log('MongoDB connected');
   } catch (err) {
