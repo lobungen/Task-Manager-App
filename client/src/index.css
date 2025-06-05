@@ -63,7 +63,9 @@ button {
 }
 button:hover {
   border-color: #1c7eff;
-  color: #1c7eff;
+  /* Fix the hover text color */
+  color: white;
+  background-color: #005ecb; /* darker blue for hover effect */
 }
 button:focus,
 button:focus-visible {
