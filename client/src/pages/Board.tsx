@@ -11,7 +11,7 @@ import taskimage from '../assets/task-management.png';
 import auth from '../utils/auth';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 
 const boardStates = ['To Do', 'In Progress', 'Done'];
 
