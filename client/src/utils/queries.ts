@@ -21,3 +21,8 @@ export const QUERY_USERS = gql`
   }
 }
 `;
+
+export const QUERY_TICKET = gql`
+    query Tickets {
+    
+    }

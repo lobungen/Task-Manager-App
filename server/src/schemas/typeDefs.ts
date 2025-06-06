@@ -12,6 +12,9 @@ const typeDefs = `
     password: String!
     }
   
+    type auth {
+    
+    }
     
     type Query {
       tickets: [Ticket]!
