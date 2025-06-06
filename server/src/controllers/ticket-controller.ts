@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Ticket from '../models/ticket.js';
+import { Ticket } from '../models/ticket.js';
 
 
 // GET /tickets

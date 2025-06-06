@@ -1,30 +1,36 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-
+import { useNavigate } from "react-router-dom";
 import Auth from '../utils/auth';
-import { login } from "../api/authAPI";
+import { useMutation, gql } from '@apollo/client';
+
+const LOGIN_USER = gql`
+  mutation LoginUser($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+    }
+  }
+`;
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({
-    username: '',
-    password: ''
-  });
+  const [loginData, setLoginData] = useState({ username: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const [loginMutation, { loading }] = useMutation(LOGIN_USER);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setLoginData({
-      ...loginData,
-      [name]: value
-    });
+    setLoginData({ ...loginData, [name]: value });
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
     try {
-      const data = await login(loginData);
-      Auth.login(data.token);
+      const { data } = await loginMutation({ variables: loginData });
+      Auth.login(data.login.token);
+      navigate('/'); // Redirect after login
     } catch (err) {
-      console.error('Failed to login', err);
       setErrorMessage('Invalid username or password. Please try again.');
     }
   };
@@ -34,25 +40,30 @@ const Login = () => {
       <form className='form' onSubmit={handleSubmit}>
         <h1>Login</h1>
         {errorMessage && <p className='error-message'>{errorMessage}</p>}
-        <label>Username</label>
+        <label htmlFor="username">Username</label>
         <input 
+          id='username'
           type='text'
           name='username'
-          value={loginData.username || ''}
+          value={loginData.username}
           onChange={handleChange}
+          required
         />
-      <label>Password</label>
+        <label htmlFor="password">Password</label>
         <input 
+          id='password'
           type='password'
           name='password'
-          value={loginData.password || ''}
+          value={loginData.password}
           onChange={handleChange}
+          required
         />
-        <button type='submit'>Sign in</button>
+        <button type='submit' disabled={loading}>
+          {loading ? 'Signing in...' : 'Sign in'}
+        </button>
       </form>
     </div>
-    
-  )
+  );
 };
 
 export default Login;
