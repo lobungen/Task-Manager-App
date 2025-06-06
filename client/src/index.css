@@ -50,22 +50,14 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1c7eff;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  color: white;
+  background-color: white;
+  color: #1c7eff;
+  border: 2px solid #1c7eff;
 }
+
 button:hover {
-  border-color: #1c7eff;
-  /* Fix the hover text color */
+  background-color: #1c7eff;
   color: white;
-  background-color: #005ecb; /* darker blue for hover effect */
 }
 button:focus,
 button:focus-visible {
