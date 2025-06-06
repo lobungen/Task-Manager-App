@@ -43,19 +43,6 @@ const DELETE_TICKET = gql`
 const boardStates = ['To Do', 'In Progress', 'Done'];
 
 const Board = () => {
-<<<<<<< HEAD
-=======
-  //const [tickets, setTickets] = useState<TicketData[]>([]);
-  //const [error, setError] = useState(false);
-  const [ticketsByStatus, setTicketsByStatus] = useState<Record<string, TicketData[]>>({
-    'To Do': [],
-    'In Progress': [],
-    'Done': [],
-  });
-  // const [tickets, setTickets] = useState<TicketData[]>([]);
-  const [error, setError] = useState(false);
-  const [loginCheck, setLoginCheck] = useState(false);
->>>>>>> 4aa3c06fe978e9d9fbbbe3de58c38da698c51f71
   const [filter, setFilter] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'status'>('name');
   const isLoggedIn = auth.loggedIn();
