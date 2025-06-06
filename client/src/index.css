@@ -57,14 +57,14 @@ button {
   font-weight: 600;
   font-family: inherit;
   background-color: white;
-  color: #1c7eff;
+  color: #1c7eff; /* ✅ Blue text on white background */
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 button:hover {
-  background-color: #1c7eff;
-  color: white;
+  background-color: #1c7eff;  /* Blue background */
+  color: white;               /* White text on hover */
   border-color: #1c7eff;
 }
 button:focus,
