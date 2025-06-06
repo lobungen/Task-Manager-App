@@ -12,7 +12,7 @@ const TicketCard = ({ ticket, deleteTicket }: TicketCardProps) => {
   const handleDelete = async () => {
     if (ticket.id) {
       try {
-        await deleteTicket(ticket.id);
+        await deleteTicket(String(ticket.id));
       } catch (error) {
         console.error('Failed to delete ticket:', error);
       }
