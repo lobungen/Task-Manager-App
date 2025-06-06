@@ -1,14 +1,13 @@
-import User from '../models/user.js';
+import { User } from '../models/user.js';
 
 export const seedUsers = async () => {
-  const users = [
+  await User.deleteMany({});
+  for (const user of [
     { username: 'JollyGuru', password: 'password' },
     { username: 'SunnyScribe', password: 'password' },
     { username: 'RadiantComet', password: 'password' },
-  ];
-
-  for (const userData of users) {
-    const user = new User(userData);
-    await user.save(); // password is hashed via pre-save hook
+  ]) {
+    const newUser = new User(user);
+    await newUser.save(); // This triggers pre-save hook for hashing
   }
 };
