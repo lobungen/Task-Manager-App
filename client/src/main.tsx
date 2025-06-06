@@ -1,14 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom/client';
+import { ApolloProvider } from '@apollo/client';
+import client from './apolloClient';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Board from './pages/Board';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import EditTicket from './pages/EditTicket';
+import CreateTicket from './pages/CreateTicket';
+import ErrorPage from './pages/ErrorPage';
+import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
-
-import App from './App.tsx';
-import Board from './pages/Board.tsx';
-import ErrorPage from './pages/ErrorPage.tsx';
-import EditTicket from './pages/EditTicket.tsx';
-import CreateTicket from './pages/CreateTicket.tsx';
-import Login from './pages/Login.tsx';
+import App from './App';
 
 const router = createBrowserRouter([
   {
@@ -16,27 +19,20 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        index: true,
-        element: <Board />
-      }, 
-      {
-        path: '/edit',
-        element: <EditTicket />
-      },
-      {
-        path: '/create',
-        element: <CreateTicket />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      }
-    ]
-  }
-])
+      { index: true, element: <Board /> },
+      { path: 'edit', element: <ProtectedRoute><EditTicket /></ProtectedRoute> },
+      { path: 'create', element: <ProtectedRoute><CreateTicket /></ProtectedRoute> },
+      { path: 'login', element: <Login /> },
+      { path: 'signup', element: <Signup /> }, 
+    ],
+  },
+]);
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  ReactDOM.createRoot(rootElement).render(
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  );
 }

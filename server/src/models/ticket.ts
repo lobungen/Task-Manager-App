@@ -1,11 +1,18 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, Document, Types } from 'mongoose';
+import {IUser}  from './user';
 
-const TicketSchema = new mongoose.Schema({
+export interface ITicket extends Document {
+  name: string;
+  status: string;
+  description: string;
+  assignedUser: Types.ObjectId | IUser;
+}
+
+const TicketSchema: Schema<ITicket> = new Schema({
   name: { type: String, required: true },
   status: { type: String, required: true },
   description: { type: String, required: true },
-  assignedUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-}, { timestamps: true });
+  assignedUser: { type: Schema.Types.ObjectId, ref: 'User', required: false }
+});
 
-const Ticket = mongoose.model('Ticket', TicketSchema);
-export default Ticket;
+export const Ticket = mongoose.model<ITicket>('Ticket', TicketSchema);
