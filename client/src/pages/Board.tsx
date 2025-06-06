@@ -1,153 +1,135 @@
-import { useEffect, useState, useLayoutEffect } from 'react';
+import { useQuery, useMutation, gql } from '@apollo/client';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-
-import { retrieveTickets, deleteTicket } from '../api/ticketAPI';
 import ErrorPage from './ErrorPage';
 import Swimlane from '../components/Swimlane';
-import { TicketData } from '../interfaces/TicketData';
-import { ApiMessage } from '../interfaces/ApiMessage';
 import taskimage from '../assets/task-management.png';
-
 import auth from '../utils/auth';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
-import { useQuery } from '@apollo/client';
-import { QUERY_TICKETS } from '../utils/queries';
+const GET_TICKETS = gql`
+  query {
+    tickets {
+      id
+      name
+      status
+      description
+      assignedUser { username }
+    }
+  }
+`;
 
+const DELETE_TICKET = gql`
+  mutation DeleteTicket($id: ID!) {
+    deleteTicket(id: $id) {
+      success
+      message
+    }
+  }
+`;
 
 const boardStates = ['To Do', 'In Progress', 'Done'];
 
 const Board = () => {
-  //const [tickets, setTickets] = useState<TicketData[]>([]);
-  //const [error, setError] = useState(false);
-  const [loginCheck, setLoginCheck] = useState(false);
   const [filter, setFilter] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'status'>('name');
-  
-  const { loading, data, error } = useQuery(QUERY_TICKETS);
-  // this becomes the source of truth/STATE for tickets
-  const tickets = data?.tickets || [];
+  const isLoggedIn = auth.loggedIn();
 
-  console.log("loading: ", loading);
-  console.log("data: ", data);
-  console.log("error: ", error);
+  const { loading, error, data, refetch } = useQuery(GET_TICKETS, {
+    skip: !isLoggedIn,
+  });
 
-  if (loading) return <p>Loading...</p>;
+  const [deleteTicket] = useMutation(DELETE_TICKET, {
+    onCompleted: () => refetch(),
+    onError: () => {}, // Optionally handle error
+  });
 
+  // Filtering and sorting
+  const filteredTickets = useMemo(() => {
+    if (!data?.tickets) return [];
+    return data.tickets
+      .filter((ticket: any) =>
+        ticket.name?.toLowerCase().includes(filter.toLowerCase())
+      )
+      .sort((a: any, b: any) =>
+        (a[sortBy] || '').localeCompare(b[sortBy] || '')
+      );
+  }, [data, filter, sortBy]);
 
-  const checkLogin = () => {
-    if (auth.loggedIn()) {
-      setLoginCheck(true);
-
-    }
+  // Delete handler
+  const handleDeleteTicket = async (ticketId: string) => {
+    await deleteTicket({ variables: { id: ticketId } });
   };
 
-  const fetchTickets = async () => {
-    try {
-      const data = await retrieveTickets();
-      setTickets(data);
-    } catch (err) {
-      console.error('Failed to retrieve tickets:', err);
-      setError(true);
-    }
-  };
-
-  const deleteIndvTicket = async (ticketId: number): Promise<ApiMessage> => {
-    try {
-      const data = await deleteTicket(ticketId);
-      fetchTickets();
-      return data;
-    } catch (err) {
-      return Promise.reject(err);
-    }
-  };
-
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter(e.target.value);
-  };
-
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(e.target.value as 'name' | 'status');
-  };
-
-  const filteredTickets = tickets
-    .filter(ticket => ticket.name?.toLowerCase().includes(filter.toLowerCase()))
-    .sort((a, b) => (a[sortBy] || '').localeCompare(b[sortBy] || ''));
-
-  useLayoutEffect(() => {
-    checkLogin();
-  }, []);
-
-  useEffect(() => {
-    if (loginCheck) {
-      fetchTickets();
-    }
-  }, [loginCheck]);
-
-  if (error) {
-    return <ErrorPage />;
+  if (!isLoggedIn) {
+    return (
+      <div className="login-notice">
+        <img src={taskimage} alt="Task Manager" className="task-image" />
+        <h1>Welcome to Task Manager App!</h1>
+        <p>Let's get organized. Start by adding your first task and take control of your productivity.</p>
+      </div>
+    );
   }
 
+  if (loading) return <div>Loading...</div>;
+  if (error) return <ErrorPage />;
+
   return (
-    <>
-      <div>
-        {!loginCheck ? (
-          <div className="login-notice">
-            <img src={taskimage} alt="Task Manager Logo" />
-            <h1>Welcome to Task Manager App!</h1>
-            <p>Let's get organized. Start by adding your first task and take control of your productivity.</p>
-          </div>
-        ) : (
-          <div className="board">
-            <div className="controls">
-              <input
-                type="text"
-                placeholder="Filter tickets"
-                value={filter}
-                onChange={handleFilterChange}
-                className="input-select"
+    <div>
+      <div className="board">
+        <div className="controls">
+          <input
+            type="text"
+            placeholder="Filter tickets"
+            value={filter}
+            onChange={e => setFilter(e.target.value)}
+            className="input-select"
+          />
+          <select
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value as 'name' | 'status')}
+            className="input-select"
+          >
+            <option value="name">Sort by Name</option>
+            <option value="status">Sort by Status</option>
+          </select>
+        </div>
+       <Link to="/create">
+         <button type="button" id="create-ticket-link" className="nav-btn">
+         New Ticket
+         </button>
+       </Link>
+        <div className="board-display">
+          {boardStates.map(status => {
+            const filteredByStatus = filteredTickets.filter(
+              (ticket: any) => ticket.status === status
+            );
+            return (
+              <Swimlane
+                title={status}
+                key={status}
+                tickets={filteredByStatus}
+                deleteTicket={handleDeleteTicket}
               />
-              <select value={sortBy} onChange={handleSortChange} className="input-select">
-                <option value="name">Sort by Name</option>
-                <option value="status">Sort by Status</option>
-              </select>
-            </div>
-            <button type="button" id="create-ticket-link">
-              <Link to="/create">New Ticket</Link>
-            </button>
-            <div className="board-display">
-              {boardStates.map(status => {
-                const filteredByStatus = filteredTickets.filter(
-                  ticket => ticket.status === status
-                );
-                return (
-                  <Swimlane
-                    title={status}
-                    key={status}
-                    tickets={filteredByStatus}
-                    deleteTicket={deleteIndvTicket}
-                  />
-                );
-              })}
-            </div>
-          </div>
-        )}
-        <footer className="app-footer">
-          <p>&copy; 2025 Task Manager App. All rights reserved.</p>
-          <div className="footer-social">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <FaFacebook />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <FaTwitter />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FaInstagram />
-            </a>
-          </div>
-        </footer>
+            );
+          })}
+        </div>
       </div>
-    </>
+      <footer className="app-footer">
+        <p>&copy; 2025 Task Manager App. All rights reserved.</p>
+        <div className="footer-social">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <FaFacebook />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <FaTwitter />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <FaInstagram />
+          </a>
+        </div>
+      </footer>
+    </div>
   );
 };
 
