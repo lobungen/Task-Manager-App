@@ -326,14 +326,5 @@ tbody tr:nth-child(odd) {
 }
 .nav-btn + .nav-btn {
   margin-left: 0.5em;
-=======
-
-.special-features {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  margin-top: 20px;
-  color: #1c7eff;
->>>>>>> 4aa3c06fe978e9d9fbbbe3de58c38da698c51f71
 }
+
