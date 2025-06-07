@@ -5,7 +5,7 @@ import ErrorPage from './ErrorPage';
 import Swimlane from '../components/Swimlane';
 import taskimage from '../assets/task-management.png';
 import auth from '../utils/auth';
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+// import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const GET_TICKETS = gql`
   query {
@@ -41,7 +41,7 @@ const Board = () => {
 
   const [deleteTicket] = useMutation(DELETE_TICKET, {
     onCompleted: () => refetch(),
-    onError: () => {}, // Optionally handle error
+    onError: () => { }, // Optionally handle error
   });
 
   // Filtering and sorting
@@ -94,11 +94,11 @@ const Board = () => {
             <option value="status">Sort by Status</option>
           </select>
         </div>
-       <Link to="/create">
-         <button type="button" id="create-ticket-link" className="nav-btn">
-         New Ticket
-         </button>
-       </Link>
+        <Link to="/create">
+          <button type="button" id="create-ticket-link" className="nav-btn">
+            New Ticket
+          </button>
+        </Link>
         <div className="board-display">
           {boardStates.map(status => {
             const filteredByStatus = filteredTickets.filter(
@@ -119,13 +119,13 @@ const Board = () => {
         <p>&copy; 2025 Task Manager App. All rights reserved.</p>
         <div className="footer-social">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <FaFacebook />
+
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-            <FaTwitter />
+
           </a>
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <FaInstagram />
+
           </a>
         </div>
       </footer>
