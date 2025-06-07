@@ -24,7 +24,7 @@ describe('Navbar', () => {
   });
 
   it('renders Logout button when logged in', () => {
-   
+
     (auth.loggedIn as vi.Mock).mockReturnValue(true);
 
     render(
