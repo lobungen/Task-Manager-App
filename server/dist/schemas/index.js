@@ -1,3 +1,3 @@
-import typeDefs from './typeDefs.js';
-import resolvers from './resolvers.js';
+import typeDefs from '../schemas/typeDefs.js';
+import resolvers from '../schemas/resolvers.js';
 export { typeDefs, resolvers };

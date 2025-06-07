@@ -5,7 +5,7 @@ import ErrorPage from './ErrorPage';
 import Swimlane from '../components/Swimlane';
 import taskimage from '../assets/task-management.png';
 import auth from '../utils/auth';
-// import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const GET_TICKETS = gql`
   query {
@@ -117,17 +117,17 @@ const Board = () => {
       </div>
       <footer className="app-footer">
         <p>&copy; 2025 Task Manager App. All rights reserved.</p>
-        {/* <div className="footer-social">
+        <div className="footer-social">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            
+            <FaFacebook />
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-            
+            <FaTwitter />
           </a>
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            
+            <FaInstagram />
           </a>
-        </div> */}
+        </div>
       </footer>
     </div>
   );
