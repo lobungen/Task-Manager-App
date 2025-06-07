@@ -1,26 +1,41 @@
-const typeDefs = `
-  type Ticket {
-    _id: ID!
-    name: String!
-    status: String!
-    description: String!
+import { gql } from 'apollo-server-express';
+
+export default gql`
+  type User {
+    id: ID!
+    username: String!
   }
 
-  type User {
-    _id: ID!
-    username: String!
-    password: String!
-    }
-  
-    
-    type Query {
-      tickets: [Ticket]!
-      users: [User]!
-    }
+  type Ticket {
+    id: ID!
+    name: String!
+    description: String
+    status: String!
+    assignedUser: User
+  }
 
-    type Mutation {
-        createTicket(name:String!, status:String!, description:String!): Ticket!
-    }
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
 
-`
-export default typeDefs;
+   type DeleteTicketResponse {
+    success: Boolean!
+    message: String
+  }
+
+  type Query {
+    me: User
+    users: [User!]!
+    tickets: [Ticket!]!
+    ticket(id: ID!): Ticket
+  }
+
+  type Mutation {
+    login(username: String!, password: String!): AuthPayload!
+    createUser(username: String!, password: String!): User!
+    createTicket(name: String!, description: String, status: String!, assignedUserId: ID): Ticket!
+    updateTicket(id: ID!, name: String, description: String, status: String, assignedUserId: ID): Ticket!
+    deleteTicket(id: ID!): DeleteTicketResponse!
+  }
+`;

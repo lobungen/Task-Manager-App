@@ -1,9 +1,8 @@
-import mongoose from 'mongoose';
-const TicketSchema = new mongoose.Schema({
+import mongoose, { Schema } from 'mongoose';
+const TicketSchema = new Schema({
     name: { type: String, required: true },
     status: { type: String, required: true },
     description: { type: String, required: true },
-    assignedUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-}, { timestamps: true });
-const Ticket = mongoose.model('Ticket', TicketSchema);
-export default Ticket;
+    assignedUser: { type: Schema.Types.ObjectId, ref: 'User', required: false }
+});
+export const Ticket = mongoose.model('Ticket', TicketSchema);
