@@ -36,11 +36,11 @@ const CreateTicket = () => {
 
   // State for the new ticket
  const [newTicket, setNewTicket] = useState<TicketData>({
-  id: 0,
+  id: '',
   name: '',
   description: '',
   status: 'To Do',
-  assignedUserId: 0,
+  assignedUserId: '',
   assignedUser: null
 });
 
@@ -87,7 +87,7 @@ const CreateTicket = () => {
         <input
           id='tName'
           name='name'
-          value={newTicket.name ?? ''}
+          value={newTicket.name}
           onChange={handleChange}
           required
         />
@@ -95,7 +95,7 @@ const CreateTicket = () => {
         <select
           name='status'
           id='tStatus'
-          value={newTicket.status ?? ''}
+          value={newTicket.status}
           onChange={handleChange}
           className="input-select"
         >
@@ -107,30 +107,22 @@ const CreateTicket = () => {
         <textarea
           id='tDescription'
           name='description'
-          value={newTicket.description ?? ''}
+          value={newTicket.description}
           onChange={handleChange}
         />
         <label htmlFor='tUserId'>Assign to User</label>
-<select
-  name='assignedUserId'
-  id='tUserId'
-  value={newTicket.assignedUserId !== null ? String(newTicket.assignedUserId) : ''} // Corrected property name
-  onChange={(e) =>
-    setNewTicket((prev) => ({
-      ...prev,
-      assignedUserId: e.target.value ? Number(e.target.value) : 0 // Corrected property name
-    }))
-  }
->
-  <option value="">Select a user</option> 
-  {usersData?.users.map((user: UserData) =>
-    user.id !== null && (
-      <option key={user.id} value={String(user.id)}>
-        {user.username}
-      </option>
-    )
-  )}
-</select>
+        <select
+          name='assignedUserId'
+          id='tUserId'
+          value={newTicket.assignedUserId}
+          onChange={handleChange}
+        >
+          {usersData?.users.map((user: UserData) => (
+            <option key={user.id} value={user.id}>
+              {user.username}
+            </option>
+          ))}
+        </select>
         <button type='submit'>Submit Form</button>
       </form>
     </div>
