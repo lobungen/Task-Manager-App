@@ -39,10 +39,19 @@ export const updateTicket = async (req, res) => {
     const { id } = req.params;
     const { name, status, description, assignedUserId } = req.body;
     try {
-        const ticket = await Ticket.findByIdAndUpdate(id, { name, status, description, assignedUserId }, { new: true });
+        const ticket = await Ticket.findById(id);
         if (!ticket) {
             return res.status(404).json({ message: 'Ticket not found' });
         }
+        if (name)
+            ticket.name = name;
+        if (status)
+            ticket.status = status;
+        if (description)
+            ticket.description = description;
+        if (assignedUserId)
+            ticket.assignedUser = assignedUserId;
+        await ticket.save();
         return res.json(ticket);
     }
     catch (error) {

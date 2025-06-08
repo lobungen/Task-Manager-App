@@ -2,7 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 const UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    avatarUrl: { type: String, default: '' }
 });
 // Hash password before saving
 UserSchema.pre('save', async function (next) {
