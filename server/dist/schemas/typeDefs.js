@@ -11,6 +11,9 @@ export default gql `
     description: String
     status: String!
     assignedUser: User
+    priority: String
+    createdAt: String
+    updatedAt: String
   }
 
   type AuthPayload {
@@ -33,8 +36,8 @@ export default gql `
   type Mutation {
     login(username: String!, password: String!): AuthPayload!
     createUser(username: String!, password: String!): User!
-    createTicket(name: String!, description: String, status: String!, assignedUserId: ID): Ticket!
-    updateTicket(id: ID!, name: String, description: String, status: String, assignedUserId: ID): Ticket!
+    createTicket(name: String!, description: String, status: String!, assignedUserId: ID, priority: String): Ticket!
+    updateTicket(id: ID!, name: String, description: String, status: String, assignedUserId: ID, priority: String): Ticket!
     deleteTicket(id: ID!): DeleteTicketResponse!
   }
 `;
