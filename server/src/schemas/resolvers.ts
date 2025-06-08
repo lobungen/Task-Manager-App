@@ -15,10 +15,11 @@ export default {
    login: async (_: any, { username, password }: any) => {
   const user = await User.findOne({ username });
   if (!user) throw new Error('Invalid credentials');
-  console.log('User password in DB:', user.password);
-  console.log('Password entered:', password);
+  // Remove debug logs:
+  // console.log('User password in DB:', user.password);
+  // console.log('Password entered:', password);
   const valid = await user.comparePassword(password);
-  console.log('Password valid?', valid);
+  // console.log('Password valid?', valid);
   if (!valid) throw new Error('Invalid credentials');
   const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
   return { token, user };
