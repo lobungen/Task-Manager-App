@@ -41,7 +41,7 @@ const Board = () => {
 
   const [deleteTicket] = useMutation(DELETE_TICKET, {
     onCompleted: () => refetch(),
-    onError: () => {}, // Optionally handle error
+    onError: () => { }, // Optionally handle error
   });
 
   // Filtering and sorting
@@ -66,71 +66,80 @@ const Board = () => {
       <div className="login-notice">
         <img src={taskimage} alt="Task Manager" className="task-image" />
         <h1>Welcome to Task Manager App!</h1>
-        <p>Let's get organized. Start by adding your first task and take control of your productivity.</p>
+        <div className="login-features">
+          <p>Stay productive with a simple, powerful task board. Log in to start managing your tasks efficiently and visually.</p>
+
+          <ul className="features-list">
+            <li>✅ Create, assign, and track tasks</li>
+            <li>📊 Visualize workflow in kanban-style boards</li>
+            <li>🔔 Get real-time updates and notifications</li>
+          </ul>
+
+        </div>
       </div>
     );
   }
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <ErrorPage />;
+        if (loading) return <div>Loading...</div>;
+        if (error) return <ErrorPage />;
 
-  return (
-    <div>
-      <div className="board">
-        <div className="controls">
-          <input
-            type="text"
-            placeholder="Filter tickets"
-            value={filter}
-            onChange={e => setFilter(e.target.value)}
-            className="input-select"
-          />
-          <select
-            value={sortBy}
-            onChange={e => setSortBy(e.target.value as 'name' | 'status')}
-            className="input-select"
-          >
-            <option value="name">Sort by Name</option>
-            <option value="status">Sort by Status</option>
-          </select>
-        </div>
-       <Link to="/create">
-         <button type="button" id="create-ticket-link" className="nav-btn" aria-label="Create a new ticket">
-         New Ticket
-         </button>
-       </Link>
-        <div className="board-display">
-          {boardStates.map(status => {
-            const filteredByStatus = filteredTickets.filter(
-              (ticket: any) => ticket.status === status
-            );
-            return (
-              <Swimlane
-                title={status}
-                key={status}
-                tickets={filteredByStatus}
-                deleteTicket={handleDeleteTicket}
+        return (
+        <div>
+          <div className="board">
+            <div className="controls">
+              <input
+                type="text"
+                placeholder="Filter tickets"
+                value={filter}
+                onChange={e => setFilter(e.target.value)}
+                className="input-select"
               />
-            );
-          })}
+              <select
+                value={sortBy}
+                onChange={e => setSortBy(e.target.value as 'name' | 'status')}
+                className="input-select"
+              >
+                <option value="name">Sort by Name</option>
+                <option value="status">Sort by Status</option>
+              </select>
+            </div>
+            <Link to="/create">
+              <button type="button" id="create-ticket-link" className="nav-btn" aria-label="Create a new ticket">
+                New Ticket
+              </button>
+            </Link>
+            <div className="board-display">
+              {boardStates.map(status => {
+                const filteredByStatus = filteredTickets.filter(
+                  (ticket: any) => ticket.status === status
+                );
+                return (
+                  <Swimlane
+                    title={status}
+                    key={status}
+                    tickets={filteredByStatus}
+                    deleteTicket={handleDeleteTicket}
+                  />
+                );
+              })}
+            </div>
+          </div>
+          <footer className="app-footer">
+            <p>&copy; 2025 Task Manager App. All rights reserved.</p>
+            <div className="footer-social">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <FaFacebook />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <FaTwitter />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <FaInstagram />
+              </a>
+            </div>
+          </footer>
         </div>
-      </div>
-      <footer className="app-footer">
-        <p>&copy; 2025 Task Manager App. All rights reserved.</p>
-        <div className="footer-social">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <FaFacebook />
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-            <FaTwitter />
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <FaInstagram />
-          </a>
-        </div>
-      </footer>
-    </div>
-  );
+        );
 };
 
-export default Board;
+        export default Board;
