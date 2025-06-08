@@ -7,4 +7,8 @@ export interface TicketData {
   status: string;
   assignedUserId: string;
   assignedUser: UserData | null;
+  avatarUrl: string; 
+  createdAt: string;
+  updatedAt?: string;
+  priority?: 'Low' | 'Medium' | 'High';
 }

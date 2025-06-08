@@ -110,6 +110,11 @@ button:focus-visible {
   list-style: none;
 }
 
+.nav-item > a .nav-btn {
+  margin-right: 1em; /* Adjust as needed */
+}
+
+
 /* === Table styles === */
 .table {
   width: 80vw;
@@ -156,10 +161,12 @@ main {
 
 /* Combine todo/inprogress/done styles */
 .todo, .inprogress, .done {
+  height: 1000px;
   width: 20rem;
   background-color: #1864c727;
   color: #1864c7;
   border: 1px solid #1864c7;
+  overflow-y: auto;
 }
 
 /* === Ticket card === */
@@ -172,6 +179,12 @@ main {
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border: 0.1em solid #1864c7;
+}
+
+.assigned-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* === Containers === */
@@ -286,4 +299,11 @@ main {
     background-color: white;
     color: #1864c7;
   }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }

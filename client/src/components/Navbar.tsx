@@ -23,7 +23,7 @@ const Navbar = () => {
     }
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -59,6 +59,9 @@ const Navbar = () => {
           </>
         ) : (
           <li className='nav-item'>
+            <Link to='/profile'>
+              <button type='button' className="nav-btn">Profile</button>
+            </Link>
             <button type='button' onClick={() => auth.logout()} className="nav-btn">Logout</button>
           </li>
         )}
