@@ -19,8 +19,8 @@ const GET_TICKET = gql`
 `;
 
 const UPDATE_TICKET = gql`
-  mutation UpdateTicket($id: ID!, $name: String, $description: String, $status: String) {
-    updateTicket(id: $id, name: $name, description: $description, status: $status) {
+  mutation UpdateTicket($id: ID!, $name: String, $description: String, $status: String, $priority: String) {
+    updateTicket(id: $id, name: $name, description: $description, status: $status, priority: $priority) {
       id
       name
       description
@@ -110,6 +110,17 @@ const EditTicket = () => {
           <option value='To Do'>To Do</option>
           <option value='In Progress'>In Progress</option>
           <option value='Done'>Done</option>
+        </select>
+        <label htmlFor='tPriority'>Priority</label>
+        <select
+          name='priority'
+          id='tPriority'
+          value={ticket.priority || 'Low'}
+          onChange={handleChange}
+        >
+          <option value='Low'>Low</option>
+          <option value='Medium'>Medium</option>
+          <option value='High'>High</option>
         </select>
         <label htmlFor='tDescription'>Ticket Description</label>
         <textarea

@@ -15,6 +15,9 @@ const GET_TICKETS = gql`
       status
       description
       assignedUser { username }
+      priority
+      createdAt
+      updatedAt
     }
   }
 `;
