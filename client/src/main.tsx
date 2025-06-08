@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import EditTicket from './pages/EditTicket';
 import CreateTicket from './pages/CreateTicket';
+import Profile from './pages/Profile';
 import ErrorPage from './pages/ErrorPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
@@ -22,7 +23,8 @@ const router = createBrowserRouter([
       { path: 'edit', element: <ProtectedRoute><EditTicket /></ProtectedRoute> },
       { path: 'create', element: <ProtectedRoute><CreateTicket /></ProtectedRoute> },
       { path: 'login', element: <Login /> },
-      { path: 'signup', element: <Signup /> }, 
+      { path: 'signup', element: <Signup /> },
+      { path: 'profile', element: <ProtectedRoute><Profile /></ProtectedRoute> }, 
     ],
   },
 ]);
