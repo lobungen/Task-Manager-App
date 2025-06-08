@@ -4,21 +4,15 @@ export const seedUsers = async () => {
     for (const user of [
         {
             username: 'JollyGuru',
-            password: 'password',
-            avatarUrl: '',
-            color: '#1864c7',
+            password: 'password'
         },
         {
             username: 'SunnyScribe',
-            password: 'password',
-            avatarUrl: '',
-            color: '#28a745',
+            password: 'password'
         },
         {
             username: 'RadiantComet',
-            password: 'password',
-            avatarUrl: '',
-            color: '#ffc107',
+            password: 'password'
         },
     ]) {
         const newUser = new User(user);
