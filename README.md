@@ -1,48 +1,65 @@
-# Candidate_Board [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Task-Manager-App (Kanban Board) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+> **A modern, full-stack Kanban board for teams and individuals.**
+
+---
 
 ## Description
 
-This is a full-stack Kanban board application with secure authentication using JSON Web Tokens (JWT). Users can log in, manage tasks, and view tickets in a Kanban-style interface.
+**Task-Manager-App** is a robust Kanban board application for managing tasks and tickets with a modern, responsive UI. It features secure authentication using JSON Web Tokens (JWT), user profile avatars, ticket priorities, and real-time updates. Designed for teams and individuals who want a simple yet powerful workflow tool.
 
 ---
 
 ## Table of Contents
 
 - [Description](#description)
-- [Installation](#installation)
-- [Features](#Features)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Deployment](#deployment)
+- [Screenshots](#screenshots)
 - [License](#license)
 - [Contribution Guidelines](#contribution-guidelines)
-- [Questions](#questions)
+- [Test Instructions](#test-instructions)
+- [Contact](#contact)
 
 ---
-git 
+
+## Technologies Used
+
+- **Frontend:** React, TypeScript, Vite, Apollo Client, React Router, CSS Modules
+- **Backend:** Node.js, Express, Apollo Server, MongoDB, Mongoose, JWT
+- **Testing:** Vitest, React Testing Library, Cypress
+- **Other:** Render (deployment), dotenv, bcrypt
+
+---
+
 ## Features
 
-- Secure login and logout using JWT.
-- Persistent authentication with tokens stored in local storage.
-- Task management with filtering and sorting capabilities.
-- Responsive and user-friendly interface.
+- Secure login and logout using JWT
+- User profile page with colorful avatar
+- Task management with filtering, sorting, and priority coloring
+- Real-time ticket updates after creation or edit
+- Responsive and user-friendly interface
 
 ---
 
-## Installation
+## Getting Started
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd kanban_Board
+   cd Task-Manager-App
    ```
 
-2. Install dependencies:
+2. **Install dependencies:**
    ```bash
    cd server && npm install
    cd ../client && npm install
    ```
 
-3. Set up the `.env` file in the `server` directory:
+3. **Set up the `.env` file in the `server` directory:**
    ```properties
    MONGODB_URI=your-atlas-uri-here
    MONGODB_DB=kanban_db
@@ -50,13 +67,13 @@ git
    PORT=3001
    ```
 
-4. Seed the database:
+4. **Seed the database:**
    ```bash
    cd server
    npm run seed
    ```
 
-5. Start the development server:
+5. **Start the development server:**
    ```bash
    cd server && npm run dev
    cd ../client && npm run dev
@@ -66,34 +83,31 @@ git
 
 ## Usage
 
-1. Create a `.env` file in the `environment` folder with the following content:
-   ```
-   VITE_GITHUB_TOKEN=your_personal_access_token
-   ```
-   Replace `your_personal_access_token` with your GitHub Personal Access Token.
-
-2. Start the development server:
-   ```sh
-   npm run dev
-   ```
-
-3. Open the application in your browser at `http://localhost:5173`.
+1. Open the application in your browser at [http://localhost:5173](http://localhost:5173).
+2. Sign up or log in.
+3. Create, edit, and manage your tasks on the Kanban board.
+4. Click your profile to view your avatar and user info.
 
 ---
 
 ## Deployment
 
-The application is deployed on Render. You can access it at:(https://kanban-board-g5ej.onrender.com/)
+**Live Demo:**  
+👉 [https://task-manager-app-qfzm.onrender.com/](https://task-manager-app-qfzm.onrender.com/)
 
-see this screenshots of the app:
-![Home](https://1drv.ms/i/c/3b216777a5c674e6/EYn7JD3eQsZHke6MGKqEDKUBsIP1mvV7i5AuKlWUfXalFg?e=rPxegP)
-![Login](https://1drv.ms/i/c/3b216777a5c674e6/EeoVLjNHWtNJtp6fm0WMRt4BMPjoq9T0R32MiDss0T0xaA?e=FMgNDY)
-![Kanban](https://1drv.ms/i/c/3b216777a5c674e6/EZ2reE4ijb5AnJttqx6Ga0sB_ehU8sfIdvGLjxkvWspheA?e=EO5Xgp)
 ---
 
-## License 
-Project license: MIT
+## Screenshots
 
+| Home | Login | Kanban Board |
+|------|-------|--------------|
+| ![Home screenshot](https://1drv.ms/i/c/3b216777a5c674e6/EQizGjMHE5dLvDdM8GDHSOIBq-wL7dTSQ4MZM8PYpJUblA?e=atcGUC) | ![Login screenshot](https://1drv.ms/i/c/3b216777a5c674e6/EWW82TNx1xRPoJbJXE8_A_0B5mAgGgoqfmpS-GcSgOS5Bg?e=vDzqQW) | ![Kanban screenshot](https://1drv.ms/i/c/3b216777a5c674e6/EQ_LmZhTLNVBi2oH_gU3HrYBxpm-aliQcu-RP3bDhISZ2w?e=gV7SBC) |
+
+---
+
+## License
+
+Project license: MIT  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
@@ -106,7 +120,16 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 ## Test Instructions
 
-Tests will be added in the future.
+Tests are written with Vitest and React Testing Library.  
+To run tests:
+```bash
+cd client
+npm run test
+```
 
-## Questions
-If you have any questions, please feel free to contact me at gamalmubarak87@gmail.com. You can also find more of my work at [gamalmubarak](https://github.com/gamalmubarak).
+---
+
+## Contact
+
+If you have any questions, please feel free to contact me at gamalmubarak87@gmail.com.  
+You can also find more of my work at [gamalmubarak](https://github.com/gamalmubarak).
