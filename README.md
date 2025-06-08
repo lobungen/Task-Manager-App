@@ -101,7 +101,7 @@
 
 | Home | Login | Kanban Board |
 |------|-------|--------------|
-| ![Home screenshot](https://1drv.ms/i/c/3b216777a5c674e6/EQizGjMHE5dLvDdM8GDHSOIBq-wL7dTSQ4MZM8PYpJUblA?e=atcGUC) | ![Login screenshot](https://1drv.ms/i/c/3b216777a5c674e6/EWW82TNx1xRPoJbJXE8_A_0B5mAgGgoqfmpS-GcSgOS5Bg?e=vDzqQW) | ![Kanban screenshot](https://1drv.ms/i/c/3b216777a5c674e6/EQ_LmZhTLNVBi2oH_gU3HrYBxpm-aliQcu-RP3bDhISZ2w?e=gV7SBC) |
+| ![Home screenshot](client/public/screenshots/home.png) | ![Login screenshot](client/public/screenshots/login.png) | ![Kanban screenshot](client/public/screenshots/kanban.png) |
 
 ---
 
