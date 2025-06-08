@@ -4,6 +4,23 @@ import { useQuery, useMutation, gql } from '@apollo/client';
 import { TicketData } from '../interfaces/TicketData';
 import { UserData } from '../interfaces/UserData';
 
+// Define the GET_TICKETS query
+
+const GET_TICKETS = gql`
+  query {
+    tickets {
+      id
+      name
+      description
+      status
+      assignedUser { username }
+      priority
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 const GET_USERS = gql`
   query {
     users {
@@ -14,13 +31,16 @@ const GET_USERS = gql`
 `;
 
 const CREATE_TICKET = gql`
-  mutation CreateTicket($name: String!, $description: String, $status: String!, $assignedUserId: ID) {
-    createTicket(name: $name, description: $description, status: $status, assignedUserId: $assignedUserId) {
+  mutation CreateTicket($name: String!, $description: String, $status: String!, $assignedUserId: ID, $priority: String) {
+    createTicket(name: $name, description: $description, status: $status, assignedUserId: $assignedUserId, priority: $priority) {
       id
       name
       description
       status
       assignedUser { username }
+      priority
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -32,7 +52,9 @@ const CreateTicket = () => {
   const { data: usersData, loading: usersLoading } = useQuery(GET_USERS);
 
   // Apollo mutation for creating a ticket
-  const [createTicketMutation, { error: mutationError }] = useMutation(CREATE_TICKET);
+  const [createTicketMutation, { error: mutationError }] = useMutation(CREATE_TICKET, {
+  refetchQueries: [{ query: GET_TICKETS }],
+});
 
   // State for the new ticket
   const [newTicket, setNewTicket] = useState<TicketData>({
@@ -67,6 +89,7 @@ const CreateTicket = () => {
           description: newTicket.description,
           status: newTicket.status,
           assignedUserId: newTicket.assignedUserId,
+          priority: newTicket.priority,
         }
       });
       navigate('/');
@@ -106,6 +129,17 @@ const CreateTicket = () => {
           <option value='To Do'>To Do</option>
           <option value='In Progress'>In Progress</option>
           <option value='Done'>Done</option>
+        </select>
+         <label htmlFor='tPriority'>Priority</label>
+        <select
+          name='priority'
+          id='tPriority'
+          value={newTicket.priority}
+          onChange={handleChange}
+        >
+          <option value='Low'>Low</option>
+          <option value='Medium'>Medium</option>
+          <option value='High'>High</option>
         </select>
         <label htmlFor='tDescription'>Ticket Description</label>
         <textarea

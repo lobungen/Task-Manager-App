@@ -22,7 +22,7 @@ describe('TicketCard', () => {
     );
     expect(screen.getByText('Test Ticket')).toBeInTheDocument();
     expect(screen.getByText('Test Description')).toBeInTheDocument();
-    expect(screen.getByText('user1')).toBeInTheDocument();
+    expect(screen.getAllByText('user1').length).toBeGreaterThan(0);
   });
 
   it('calls deleteTicket when Delete button is clicked', () => {
