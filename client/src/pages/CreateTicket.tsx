@@ -35,14 +35,18 @@ const CreateTicket = () => {
   const [createTicketMutation, { error: mutationError }] = useMutation(CREATE_TICKET);
 
   // State for the new ticket
- const [newTicket, setNewTicket] = useState<TicketData>({
-  id: '',
-  name: '',
-  description: '',
-  status: 'To Do',
-  assignedUserId: '',
-  assignedUser: null
-});
+  const [newTicket, setNewTicket] = useState<TicketData>({
+    id: '',
+    name: '',
+    description: '',
+    status: 'To Do',
+    assignedUserId: '',
+    assignedUser: null,
+    avatarUrl: '',
+    createdAt: '',
+    updatedAt: '',
+    priority: 'Low'
+  });
 
   // Set default assigned user after users are loaded
   useEffect(() => {

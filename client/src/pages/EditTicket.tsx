@@ -11,6 +11,9 @@ const GET_TICKET = gql`
       description
       status
       assignedUser { username }
+      createdAt
+      updatedAt
+      priority
     }
   }
 `;
@@ -23,6 +26,9 @@ const UPDATE_TICKET = gql`
       description
       status
       assignedUser { username }
+      createdAt
+      updatedAt
+      priority
     }
   }
 `;
@@ -58,6 +64,9 @@ const EditTicket = () => {
             name: ticket.name,
             description: ticket.description,
             status: ticket.status,
+            createdAt: ticket.createdAt,
+            updatedAt: ticket.updatedAt,
+            priority: ticket.priority,
           }
         });
         setSuccess(true);

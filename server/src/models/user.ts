@@ -10,6 +10,7 @@ export interface IUser extends Document {
 const UserSchema: Schema<IUser> = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
+  avatarUrl: { type: String, default: '' } 
 });
 
 // Hash password before saving
