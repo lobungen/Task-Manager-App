@@ -16,6 +16,9 @@ const GET_TICKETS = gql`
       status
       description
       assignedUser { username }
+       priority
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -31,7 +34,10 @@ const mocks = [
             name: 'Test Ticket',
             status: 'To Do',
             description: 'desc',
-            assignedUser: { username: 'user1' }
+            assignedUser: { username: 'user1' },
+            priority: 'Low',
+            createdAt: '1749350368927',
+            updatedAt: '1749350368927'
           }
         ],
       },
@@ -56,6 +62,6 @@ describe('Board', () => {
     );
     expect(await screen.findByText(/Test Ticket/)).toBeInTheDocument();
     expect(screen.getByText(/desc/)).toBeInTheDocument();
-    expect(screen.getByText(/user1/)).toBeInTheDocument();
+    expect(screen.getAllByText(/user1/).length).toBeGreaterThan(0);
   });
 });
